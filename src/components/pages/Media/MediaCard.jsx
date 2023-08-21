@@ -19,7 +19,7 @@ const MediaCard = () => {
             <div className='mb-2 ml-5'>
                 <p>no likes</p>
             </div>
-            <hr />
+            <hr className='border border-blue-300' />
             <div className='flex justify-evenly py-3'>
                 <div className='flex items-center hover:text-blue-400'>
                     <BiLike className='text-3xl mr-2' />
