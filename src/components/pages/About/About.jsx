@@ -16,7 +16,7 @@ const About = () => {
                     </div>
                     <div className="card-body">
                         <h2 className="text-2xl text-center font-bold">Erhan</h2>
-                        <h4 className='text-base'><span className='font-bold'>Email: nabiursiddique01@gmail.com</span></h4>
+                        <h4 className='text-base'><span className='font-bold'>Email:</span> nabiursiddique01@gmail.com</h4>
                         {/* {
                             user.emailVerified ?
                                 <h4 className='text-base'><span className='font-bold'>Email verified: </span>Yes</h4>

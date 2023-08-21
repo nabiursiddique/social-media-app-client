@@ -21,18 +21,18 @@ const MediaCard = () => {
             </div>
             <hr className='border border-blue-300' />
             <div className='flex justify-evenly py-3'>
-                <div className='flex items-center hover:text-blue-400'>
+                <button className='flex items-center hover:text-blue-400'>
                     <BiLike className='text-3xl mr-2' />
                     <h1>Like</h1>
-                </div>
-                <div className='flex items-center hover:text-green-400'>
+                </button>
+                <button className='flex items-center hover:text-green-400'>
                     <BiMessage className='text-3xl mr-2' />
                     <h1>Comments</h1>
-                </div>
-                <div className='flex items-center hover:text-sky-400'>
+                </button>
+                <button className='flex items-center hover:text-sky-400'>
                     <BiReceipt className='text-3xl mr-2' />
                     <h1>Details</h1>
-                </div>
+                </button>
             </div>
         </div>
     );

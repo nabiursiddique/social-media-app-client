@@ -25,7 +25,7 @@ const Navbar = () => {
                 <Link to='/' className="btn btn-ghost text-xl">Social Media<span className='text-blue-600 text-2xl'>.</span></Link>
             </div>
             <div className="navbar-end mr-2">
-                <ul className="menu menu-horizontal px-1 hidden lg:flex">
+                <ul className="menu menu-horizontal px-1 hidden lg:flex mr-1">
                     {menu}
                 </ul>
                 <Link to='/about'>
