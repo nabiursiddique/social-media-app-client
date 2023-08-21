@@ -7,12 +7,12 @@ const SignUp = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
     const handleSignUp = (data) => {
-        console.log(data.email);
+        console.log(data);
         reset();
     }
     return (
         <div className='h-auto flex justify-center items-center'>
-            <div className='w-96 p-7 my-7 mx-3 shadow-lg border border-white rounded-lg'>
+            <div className='w-96 p-7 my-7 mx-3 shadow-lg border border-blue-200 rounded-lg'>
                 <h2 className='text-center text-4xl mt-5 font-extrabold'>SIGN UP</h2>
 
                 <form onSubmit={handleSubmit(handleSignUp)}>
@@ -25,6 +25,7 @@ const SignUp = () => {
                         })} type="text" placeholder="Your Name" className="input input-bordered w-full" />
                         {errors.name && <p className='text-sm mt-2 text-red-500'>{errors.name?.message}</p>}
                     </div>
+
                     <div className="form-control w-full">
                         <label className="label"><span className="label-text">Email</span></label>
                         <input {...register("email", {
@@ -32,6 +33,7 @@ const SignUp = () => {
                         })} type="text" placeholder="Your Email" className="input input-bordered w-full" />
                         {errors.email && <p className='text-sm mt-2 text-red-500'>{errors.email?.message}</p>}
                     </div>
+
                     <div className="form-control w-full ">
                         <label className="label">
                             <span className="label-text">Your Photo</span>
@@ -41,6 +43,7 @@ const SignUp = () => {
                         })} type="file" placeholder="Type here" className="file-input file-input-bordered file-input-info w-full" />
                         {errors.image && <p className='text-sm mt-2 text-red-500'>{errors.image?.message}</p>}
                     </div>
+
                     <div className="form-control w-full">
                         <label className="label"><span className="label-text">Password</span></label>
                         <input {...register("password", {

@@ -15,7 +15,7 @@ const PostForm = () => {
                 <div className='grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:gap-20 gap-4 lg:mx-32 md:mx-20 mx-8 mb-5'>
                     <div className='form-control w-full'>
                         <label className="label">
-                            <span className="label-text text-blue-600">Write Your Thoughts</span>
+                            <span className="label-text text-blue-400">Write Your Thoughts</span>
                         </label>
                         <textarea {...register("postContent", {
                             required: "Post content is required."
@@ -25,7 +25,7 @@ const PostForm = () => {
                     {/* For uploading Image */}
                     <div className="form-control w-full max-w-xs my-auto">
                         <label className="label">
-                            <span className="label-text text-blue-500">Upload a Photo</span>
+                            <span className="label-text text-blue-400">Upload a Photo</span>
                         </label>
                         <input {...register("postImage")} type="file" className="file-input file-input-bordered file-input-info w-full max-w-lg" />
                     </div>

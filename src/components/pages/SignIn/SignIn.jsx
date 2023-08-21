@@ -7,12 +7,12 @@ const SignIn = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
 
     const handleSignIn = (data) => {
-        console.log(data.email, data.password);
+        console.log(data);
         reset();
     }
     return (
         <div className='h-auto flex justify-center items-center'>
-            <div className='w-96 p-7 my-7 mx-3 shadow-lg border border-white rounded-lg'>
+            <div className='w-96 p-7 my-7 mx-3 shadow-lg border border-blue-200 rounded-lg'>
                 <h2 className='text-center text-4xl mt-5 font-extrabold'>SIGN IN</h2>
 
                 <form onSubmit={handleSubmit(handleSignIn)}>
@@ -38,7 +38,7 @@ const SignIn = () => {
                     </div>
                     <input value='Sign In' className='btn w-full my-4 btn-info  text-white hover:bg-blue-600 border-none' type="submit" />
                 </form>
-                <p className='text-sm text-center'>New to <span className='text-blue-500'>AAA</span> Technology? <Link className='text-blue-400' to='/signUp'>Sign Up</Link> </p>
+                <p className='text-sm text-center'>New to <span className='text-blue-500'>Social</span> Media? <Link className='text-blue-400' to='/signUp'>Sign Up</Link> </p>
                 <div className="divider">OR</div>
                 <button className='btn btn-outline btn-info w-full'><span className='text-xl'><FaGoogle /></span>GOOGLE</button>
             </div>
