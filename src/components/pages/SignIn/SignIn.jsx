@@ -1,14 +1,28 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGoogle } from "react-icons/fa";
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 const SignIn = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const { signIn } = useContext(AuthContext);
+    const [loginError, setLoginError] = useState('');
 
     const handleSignIn = (data) => {
-        console.log(data);
-        reset();
+        setLoginError('');
+        signIn(data.email, data.password)
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+                toast.success('Sign In Successful');
+                reset();
+            })
+            .catch(error => {
+                console.log(error);
+                setLoginError(error.message);
+            })
     }
     return (
         <div className='h-auto flex justify-center items-center'>
@@ -29,11 +43,11 @@ const SignIn = () => {
                             minLength: { value: 6, message: "Password must be at least 6 characters." }
                         })} type="password" placeholder="Your Password" className="input input-bordered w-full" />
                         {errors.password && <p className='text-sm mt-2 text-red-500'>{errors.password?.message}</p>}
-                        {/* <div>
+                        <div>
                             {
                                 loginError && <p className='text-red-500 mt-2'>{loginError}</p>
                             }
-                        </div> */}
+                        </div>
                         <label className="label"><span className="label-text">Forget Password?</span></label>
                     </div>
                     <input value='Sign In' className='btn w-full my-4 btn-info  text-white hover:bg-blue-600 border-none' type="submit" />
