@@ -8,6 +8,7 @@ const SignIn = () => {
 
     const handleSignIn = (data) => {
         console.log(data.email, data.password);
+        reset();
     }
     return (
         <div className='h-auto flex justify-center items-center'>
@@ -39,7 +40,7 @@ const SignIn = () => {
                 </form>
                 <p className='text-sm text-center'>New to <span className='text-blue-500'>AAA</span> Technology? <Link className='text-blue-400' to='/signUp'>Sign Up</Link> </p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline btn-info w-full hover:text-white'><span className='text-blue-600 text-xl'><FaGoogle /></span>GOOGLE</button>
+                <button className='btn btn-outline btn-info w-full'><span className='text-xl'><FaGoogle /></span>GOOGLE</button>
             </div>
         </div>
     );
