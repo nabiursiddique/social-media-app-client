@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa";
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { toast } from 'react-hot-toast';
@@ -9,6 +9,8 @@ const SignUp = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const { createUser, updateUser, googleSignIn } = useContext(AuthContext);
     const [signUpError, setSignUpError] = useState('');
+
+    const navigate = useNavigate();
 
     // Sign up with email and password
     const handleSignUp = (data) => {
@@ -25,6 +27,7 @@ const SignUp = () => {
                     .then(() => {
                         toast.success('Sign Up Successful');
                         reset();
+                        navigate('/');
                     })
                     .catch(error => {
                         console.log(error);

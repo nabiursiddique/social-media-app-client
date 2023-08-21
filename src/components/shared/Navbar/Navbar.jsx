@@ -23,10 +23,13 @@ const Navbar = () => {
             <li><Link to="/">Home</Link></li>
             <li><Link to="/media">Media</Link></li>
             <li><Link to="/message">Message</Link></li>
-            <li><Link to="/about">About</Link></li>
+
             {
                 user?.uid ?
-                    <li onClick={handleLogout}><a href=''>Sign Out</a></li>
+                    <>
+                        <li><Link to="/about">About</Link></li>
+                        <li onClick={handleLogout}><a href=''>Sign Out</a></li>
+                    </>
                     :
                     <li><Link to="/signIn">Sign In</Link></li>
             }

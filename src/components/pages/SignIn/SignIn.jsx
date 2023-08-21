@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { FaGoogle } from "react-icons/fa";
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { toast } from 'react-hot-toast';
 
@@ -9,6 +9,11 @@ const SignIn = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const { signIn, googleSignIn } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
+
+    // For route after login
+    const navigate = useNavigate();
+    const location = useLocation();
+    const from = location.state?.from?.pathname || "/";
 
     // Sign In with Email and Password
     const handleSignIn = (data) => {
@@ -19,6 +24,7 @@ const SignIn = () => {
                 console.log(user);
                 toast.success('Sign In Successful');
                 reset();
+                navigate(from, { replace: true });
             })
             .catch(error => {
                 console.log(error);
@@ -33,6 +39,7 @@ const SignIn = () => {
                 const { uid, displayName, email, photoURL } = result.user;
                 if (uid) {
                     toast.success('Sign In Successful');
+                    navigate(from, { replace: true });
                 }
             })
             .catch(error => {
