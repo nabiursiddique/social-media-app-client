@@ -22,7 +22,7 @@ const Navbar = () => {
                         {menu}
                     </ul>
                 </div>
-                <a className="btn btn-ghost normal-case text-xl">Social Media</a>
+                <a className="btn btn-ghost normal-case text-xl">Social Media<span className='text-blue-600 text-2xl'>.</span></a>
             </div>
             <div className="navbar-end hidden lg:flex">
                 <ul className="menu menu-horizontal px-1">
