@@ -10,7 +10,7 @@ const PostForm = () => {
     }
 
     return (
-        <div className='mb-5'>
+        <div>
             <form onSubmit={handleSubmit(handleAddPost)}>
                 <div className='grid lg:grid-cols-2 md:grid-cols-2 grid-cols-1 lg:gap-20 gap-4 lg:mx-32 md:mx-20 mx-8 mb-5'>
                     <div className='form-control w-full'>

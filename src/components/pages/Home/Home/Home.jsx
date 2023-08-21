@@ -4,7 +4,7 @@ import PostForm from '../PostForm/PostForm';
 
 const Home = () => {
     return (
-        <div>
+        <div className='min-h-screen'>
             <Banner />
             <PostForm />
         </div>
