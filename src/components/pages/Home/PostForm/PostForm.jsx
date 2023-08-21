@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
+import { AuthContext } from '../../../../contexts/AuthProvider';
 
 const PostForm = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const { user } = useContext(AuthContext);
 
     const handleAddPost = (data) => {
         console.log(data.postContent);
@@ -31,7 +33,17 @@ const PostForm = () => {
                     </div>
                 </div>
                 <div className='flex justify-center'>
-                    <input value='Post' className='btn btn-outline btn-info btn-wide' type="submit" />
+                    {
+                        user ?
+                            <input value='Post' className='btn btn-outline btn-info btn-wide' type="submit" />
+                            :
+                            <>
+                                <div>
+                                    <input value='Post' className='btn btn-outline btn-info btn-wide' type="submit" disabled />
+                                    <p className='text-center mt-2 text-indigo-400'>Please Sign In to post</p>
+                                </div>
+                            </>
+                    }
                 </div>
             </form>
         </div>

@@ -27,11 +27,19 @@ const About = () => {
                     </div>
                     <div className="avatar flex justify-center">
                         <div className="w-40 rounded-full ring ring-blue-400 ring-offset-base-100 ring-offset-2">
-                            <img src='https://thumbs.dreamstime.com/z/male-avatar-icon-portrait-handsome-young-man-face-beard-vector-illustration-%D0%B3%D1%9F%D0%B3%D2%91%D0%B3%C2%B7%D0%B3-%D0%B3%D1%96%D0%B3%D1%98-187127123.jpg' />
+                            {
+                                user?.photoURL ?
+                                    <img src={user.photoURL} />
+                                    :
+                                    <img src="https://thumbs.dreamstime.com/z/male-avatar-icon-portrait-handsome-young-man-face-beard-vector-illustration-%D0%B3%D1%9F%D0%B3%D2%91%D0%B3%C2%B7%D0%B3-%D0%B3%D1%96%D0%B3%D1%98-187127123.jpg" />
+
+                            }
                         </div>
                     </div>
                     <div className="card-body">
-                        <h2 className="text-2xl text-center font-bold">Erhan</h2>
+                        <h2 className="text-2xl text-center font-bold">
+                            {user?.displayName}
+                        </h2>
                         <h4 className='text-base'><span className='font-bold'>Email: </span>{user?.email}</h4>
                         {
                             user?.emailVerified ?

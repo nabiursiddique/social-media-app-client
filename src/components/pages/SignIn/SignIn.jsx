@@ -7,9 +7,10 @@ import { toast } from 'react-hot-toast';
 
 const SignIn = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
-    const { signIn } = useContext(AuthContext);
+    const { signIn, googleSignIn } = useContext(AuthContext);
     const [loginError, setLoginError] = useState('');
 
+    // Sign In with Email and Password
     const handleSignIn = (data) => {
         setLoginError('');
         signIn(data.email, data.password)
@@ -24,6 +25,21 @@ const SignIn = () => {
                 setLoginError(error.message);
             })
     }
+
+    // Sign In with google
+    const google = () => {
+        googleSignIn()
+            .then(result => {
+                const { uid, displayName, email, photoURL } = result.user;
+                if (uid) {
+                    toast.success('Sign In Successful');
+                }
+            })
+            .catch(error => {
+                console.log(error);
+            })
+    }
+
     return (
         <div className='h-auto flex justify-center items-center'>
             <div className='w-96 p-7 my-7 mx-3 shadow-lg border border-blue-200 rounded-lg'>
@@ -54,7 +70,7 @@ const SignIn = () => {
                 </form>
                 <p className='text-sm text-center'>New to <span className='text-blue-500'>Social</span> Media? <Link className='text-blue-400' to='/signUp'>Sign Up</Link> </p>
                 <div className="divider">OR</div>
-                <button className='btn btn-outline btn-info w-full'><span className='text-xl'><FaGoogle /></span>GOOGLE</button>
+                <button onClick={google} className='btn btn-outline btn-info w-full'><span className='text-xl'><FaGoogle /></span>GOOGLE</button>
             </div>
         </div>
     );

@@ -52,7 +52,13 @@ const Navbar = () => {
                 <Link to='/about'>
                     <div className="avatar">
                         <div className="w-9 rounded-full ring ring-blue-400 ring-offset-base-100 ring-offset-1">
-                            <img src="https://thumbs.dreamstime.com/z/male-avatar-icon-portrait-handsome-young-man-face-beard-vector-illustration-%D0%B3%D1%9F%D0%B3%D2%91%D0%B3%C2%B7%D0%B3-%D0%B3%D1%96%D0%B3%D1%98-187127123.jpg" />
+                            {
+                                user?.photoURL ?
+                                    <img src={user.photoURL} alt='user photo' />
+                                    :
+                                    <img src="https://thumbs.dreamstime.com/z/male-avatar-icon-portrait-handsome-young-man-face-beard-vector-illustration-%D0%B3%D1%9F%D0%B3%D2%91%D0%B3%C2%B7%D0%B3-%D0%B3%D1%96%D0%B3%D1%98-187127123.jpg" alt='user photo' />
+
+                            }
                         </div>
                     </div>
                 </Link>
