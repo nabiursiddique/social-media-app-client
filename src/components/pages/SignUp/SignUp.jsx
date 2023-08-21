@@ -1,15 +1,25 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link } from 'react-router-dom';
 import { FaGoogle } from "react-icons/fa";
+import { AuthContext } from '../../../contexts/AuthProvider';
 
 const SignUp = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
+    const { createUser } = useContext(AuthContext);
 
     const handleSignUp = (data) => {
-        console.log(data);
+        createUser(data.email, data.password)
+            .then((result) => {
+                const user = result.user;
+                console.log(user);
+            })
+            .catch(error => {
+                console.log(error);
+            })
         reset();
     }
+
     return (
         <div className='h-auto flex justify-center items-center'>
             <div className='w-96 p-7 my-7 mx-3 shadow-lg border border-blue-200 rounded-lg'>
@@ -34,7 +44,8 @@ const SignUp = () => {
                         {errors.email && <p className='text-sm mt-2 text-red-500'>{errors.email?.message}</p>}
                     </div>
 
-                    <div className="form-control w-full ">
+                    {/* Users photo */}
+                    {/* <div className="form-control w-full ">
                         <label className="label">
                             <span className="label-text">Your Photo</span>
                         </label>
@@ -42,7 +53,7 @@ const SignUp = () => {
                             required: "Product photo is required."
                         })} type="file" placeholder="Type here" className="file-input file-input-bordered file-input-info w-full" />
                         {errors.image && <p className='text-sm mt-2 text-red-500'>{errors.image?.message}</p>}
-                    </div>
+                    </div> */}
 
                     <div className="form-control w-full">
                         <label className="label"><span className="label-text">Password</span></label>
