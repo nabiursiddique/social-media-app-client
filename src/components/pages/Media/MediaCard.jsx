@@ -1,20 +1,25 @@
 import React, { useContext } from 'react';
 import { BiLike, BiMessage, BiReceipt, BiSolidLike } from "react-icons/bi";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { toast } from 'react-hot-toast';
 
 const MediaCard = ({ post }) => {
     const { user } = useContext(AuthContext);
     const { _id, postContent, postPhotoURL, userName, userPhoto, date, time, like } = post;
+    const navigate = useNavigate();
 
     const handleLike = () => {
-        const liker = like.filter((liker) => liker === user.email);
+        if (!user) {
+            navigate('/signIn')
+        }
+
+        const liker = like.filter((liker) => liker === user?.email);
         console.log(liker.length);
-        const newLikes = [...like, user.email];
+        const newLikes = [...like, user?.email];
         console.log(newLikes);
 
-        if (liker.length === 0) {
+        if (liker.length === 0 && user?.email) {
             // Updating likes 
             fetch(`http://localhost:5000/posts/${_id}`, {
                 method: 'PATCH',
@@ -62,7 +67,7 @@ const MediaCard = ({ post }) => {
             <hr className='border border-blue-300' />
             <div className='flex justify-evenly py-3'>
                 {
-                    like.filter((liker) => liker === user.email).length > 0 ?
+                    like.filter((liker) => liker === user?.email).length > 0 ?
                         <button onClick={handleLike} className='flex items-center text-blue-400 btn lg:btn-md btn-sm btn-ghost'>
                             <BiLike className='text-3xl mr-2' />
                             <h1>Liked</h1>

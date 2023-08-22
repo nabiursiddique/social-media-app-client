@@ -6,7 +6,6 @@ import { Link, useLoaderData } from 'react-router-dom';
 const PostDetails = () => {
     const postInfo = useLoaderData();
     const { postContent, postPhotoURL, userName, userPhoto, date, time, like } = postInfo;
-    console.log(postInfo);
     return (
         <div>
             <h1 className='text-center my-3 text-xl'>Post Details</h1>
@@ -34,24 +33,17 @@ const PostDetails = () => {
                         <figure className='mb-2'><img src={postPhotoURL} alt="Cars" /></figure>
                     }
                     <div className='mb-2 ml-5 flex items-center'>
-                        <BiSolidLike className='text-2xl text-blue-600' />
+                        <BiSolidLike className='text-3xl text-blue-600' />
                         {
                             like.length < 1 ?
                                 <p className='ml-2 font-semibold'>No Likes</p>
                                 :
-                                <p className='ml-2 font-semibold'>{like}</p>
+                                <h1 className='ml-2'>
+                                    {
+                                        like.map((user, ind) => <p key={ind}><span>{user}</span>, </p>)
+                                    }
+                                </h1>
                         }
-                    </div>
-                    <hr className='border border-blue-300' />
-                    <div className='flex justify-evenly py-3'>
-                        <button className='flex items-center hover:text-blue-400 btn btn-ghost'>
-                            <BiLike className='text-3xl mr-2' />
-                            <h1>Like</h1>
-                        </button>
-                        <button className='flex items-center hover:text-green-400 btn btn-ghost'>
-                            <BiMessage className='text-3xl mr-2' />
-                            <h1>Comments</h1>
-                        </button>
                     </div>
 
                     <hr className='border border-blue-300' />

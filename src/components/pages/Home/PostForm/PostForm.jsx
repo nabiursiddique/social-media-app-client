@@ -23,7 +23,7 @@ const PostForm = () => {
             postPhotoURL: data.postPhotoURL,
             date,
             time,
-            like: ['nabiursiddique01@gmail.com']
+            like: []
         }
         // Sending post data to the database
         fetch('http://localhost:5000/posts', {
