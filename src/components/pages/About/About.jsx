@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { BiSolidEdit } from "react-icons/bi";
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { toast } from 'react-hot-toast';
+import EditInfoModal from './EditInfoModal';
 
 const About = () => {
     const { user, logout } = useContext(AuthContext);
@@ -21,10 +22,15 @@ const About = () => {
     return (
         <div>
             <div className='h-screen flex justify-center items-center'>
-                <div className="card card-compact max-w-96 bg-base-100 shadow-xl border border-blue-200 py-7" >
-                    <div className='flex justify-end mr-5'>
-                        <BiSolidEdit className='text-2xl text-blue-300 hover:text-blue-500' />
+                <div className="card card-compact max-w-96 bg-base-100 shadow-xl border border-blue-200 py-4" >
+
+                    {/* Edit Button */}
+                    <div className='flex justify-end mr-2'>
+                        <label className='btn btn-ghost' htmlFor="booking-modal">
+                            <BiSolidEdit className='text-2xl text-blue-300 hover:text-blue-500' />
+                        </label>
                     </div>
+
                     <div className="avatar flex justify-center">
                         <div className="w-40 rounded-full ring ring-blue-400 ring-offset-base-100 ring-offset-2">
                             {
@@ -56,6 +62,13 @@ const About = () => {
                     </div>
                 </div>
             </div>
+            {
+                user &&
+                <EditInfoModal
+                    university={'RIMT University'}
+                    address={'Par Naogaon, Naogaon'}
+                ></EditInfoModal>
+            }
         </div>
     );
 };
