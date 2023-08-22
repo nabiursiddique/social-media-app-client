@@ -1,11 +1,33 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { BiLike, BiMessage, BiReceipt, BiSolidLike } from "react-icons/bi";
 import { Link } from 'react-router-dom';
+import { AuthContext } from '../../../contexts/AuthProvider';
+import { toast } from 'react-hot-toast';
 
 const MediaCard = ({ post }) => {
+    const { user } = useContext(AuthContext);
     const { _id, postContent, postPhotoURL, userName, userPhoto, date, time, like } = post;
 
     const handleLike = () => {
+        const likes = like;
+        const newLikes = [...likes, user.email];
+        console.log(likes);
+        console.log(newLikes);
+
+        // Updating likes 
+        fetch(`http://localhost:5000/posts/${_id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newLikes)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success("Liked");
+                }
+            })
 
     }
 
