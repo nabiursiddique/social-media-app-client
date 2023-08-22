@@ -30,9 +30,6 @@ const MediaCard = ({ post }) => {
                     }
                 })
         }
-
-
-
     }
 
     return (
@@ -64,10 +61,19 @@ const MediaCard = ({ post }) => {
             </div>
             <hr className='border border-blue-300' />
             <div className='flex justify-evenly py-3'>
-                <button onClick={handleLike} className='flex items-center hover:text-blue-400 btn lg:btn-md btn-sm btn-ghost'>
-                    <BiLike className='text-3xl mr-2' />
-                    <h1>Like</h1>
-                </button>
+                {
+                    like.filter((liker) => liker === user.email).length > 0 ?
+                        <button onClick={handleLike} className='flex items-center text-blue-400 btn lg:btn-md btn-sm btn-ghost'>
+                            <BiLike className='text-3xl mr-2' />
+                            <h1>Liked</h1>
+                        </button>
+                        :
+                        <button onClick={handleLike} className='flex items-center hover:text-blue-400 btn lg:btn-md btn-sm btn-ghost'>
+                            <BiLike className='text-3xl mr-2' />
+                            <h1>Like</h1>
+                        </button>
+
+                }
 
                 <button className='flex items-center hover:text-green-400 btn lg:btn-md btn-sm btn-ghost'>
                     <BiMessage className='text-3xl mr-2' />
