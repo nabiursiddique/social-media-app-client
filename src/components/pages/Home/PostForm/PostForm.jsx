@@ -7,7 +7,13 @@ const PostForm = () => {
     const { user } = useContext(AuthContext);
 
     const handleAddPost = (data) => {
-        console.log(data);
+        const post = {
+            userName: user?.displayName,
+            userPhoto: user?.photoURL,
+            postContent: data.postContent,
+            postPhotoURL: data.postPhotoURL
+        }
+        console.log(post);
         reset();
     }
 
@@ -37,8 +43,8 @@ const PostForm = () => {
                     {/* Photo url */}
                     <div className="form-control w-full my-auto">
                         <label className="label"><span className="label-text">Photo URL</span></label>
-                        <input {...register("photoURL")} type="text" placeholder="Your photoURL" className="input input-bordered w-full" />
-                        {errors.photoURL && <p className='text-sm mt-2 text-red-500'>{errors.photoURL?.message}</p>}
+                        <input {...register("postPhotoURL")} type="text" placeholder="Your post photoURL" className="input input-bordered w-full" />
+                        {errors.postPhotoURL && <p className='text-sm mt-2 text-red-500'>{errors.postPhotoURL?.message}</p>}
                     </div>
                 </div>
                 <div className='flex justify-center'>
