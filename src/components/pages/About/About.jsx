@@ -48,7 +48,6 @@ const About = () => {
                                 <h4 className='text-base'><span className='font-bold'>Email verified: </span>No</h4>
 
                         }
-                        <h4 className='text-base'><span className='font-bold'>Role: </span>Student</h4>
                         <h4 className='text-base'><span className='font-bold'>University: </span>RIMT University</h4>
                         <h4 className='text-base'><span className='font-bold'>Address: </span>Par Naogaon, Naogaon</h4>
                         <div className="card-actions justify-center">

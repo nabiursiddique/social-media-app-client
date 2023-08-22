@@ -7,6 +7,7 @@ import Media from "../../components/pages/Media/Media";
 import Message from "../../components/pages/Message/Message";
 import About from "../../components/pages/About/About";
 import PrivateRoute from "../privateRoute/PrivateRoute";
+import PostDetails from "../../components/pages/PostDetails/PostDetails";
 
 const router = createBrowserRouter([
     {
@@ -20,6 +21,10 @@ const router = createBrowserRouter([
             {
                 path: '/media',
                 element: <Media />
+            },
+            {
+                path: '/post/:id',
+                element: <PrivateRoute><PostDetails /></PrivateRoute>
             },
             {
                 path: '/message',
