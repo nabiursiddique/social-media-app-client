@@ -3,7 +3,7 @@ import { BiLike, BiMessage, BiReceipt } from "react-icons/bi";
 import { Link } from 'react-router-dom';
 
 const MediaCard = ({ post }) => {
-    const { postContent, postPhotoURL, userName, userPhoto } = post;
+    const { _id, postContent, postPhotoURL, userName, userPhoto } = post;
     return (
         <div className="card lg:max-w-xl md:max-w-lg sm:max-w-md max-w-sm mx-5 bg-base-100 shadow-xl border border-blue-300 mb-6">
             <div className="card-body">
@@ -35,7 +35,7 @@ const MediaCard = ({ post }) => {
                     <h1>Comments</h1>
                 </button>
                 <button className='hover:text-sky-400 btn lg:btn-md btn-sm btn-ghost'>
-                    <Link to={`/post/1`} >
+                    <Link to={`/post/${_id}`} >
                         <div className='flex items-center'>
                             <BiReceipt className='text-3xl mr-2' />
                             <h1>Details</h1>

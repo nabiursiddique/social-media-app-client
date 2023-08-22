@@ -21,7 +21,6 @@ const SignIn = () => {
         signIn(data.email, data.password)
             .then((result) => {
                 const user = result.user;
-                console.log(user);
                 toast.success('Sign In Successful');
                 reset();
                 navigate(from, { replace: true });

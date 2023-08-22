@@ -24,7 +24,10 @@ const router = createBrowserRouter([
             },
             {
                 path: '/post/:id',
-                element: <PrivateRoute><PostDetails /></PrivateRoute>
+                element: <PrivateRoute><PostDetails /></PrivateRoute>,
+                loader: async ({ params }) => {
+                    return fetch(`http://localhost:5000/posts/${params.id}`)
+                }
             },
             {
                 path: '/message',

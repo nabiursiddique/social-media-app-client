@@ -1,10 +1,13 @@
 import React, { useContext } from 'react';
 import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../../contexts/AuthProvider';
+import { toast } from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
 const PostForm = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const { user } = useContext(AuthContext);
+    const navigate = useNavigate();
 
     const handleAddPost = (data) => {
         const post = {
@@ -14,7 +17,24 @@ const PostForm = () => {
             postPhotoURL: data.postPhotoURL
         }
         console.log(post);
-        reset();
+        // Sending post data to the database
+        fetch('http://localhost:5000/posts', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(post)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success("Post Successful");
+                    reset();
+                    navigate('/media')
+                } else {
+                    toast.error("Post not successful");
+                }
+            })
     }
 
     return (
