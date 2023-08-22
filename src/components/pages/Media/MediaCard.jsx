@@ -9,25 +9,29 @@ const MediaCard = ({ post }) => {
     const { _id, postContent, postPhotoURL, userName, userPhoto, date, time, like } = post;
 
     const handleLike = () => {
-        const likes = like;
-        const newLikes = [...likes, user.email];
-        console.log(likes);
+        const liker = like.filter((liker) => liker === user.email);
+        console.log(liker.length);
+        const newLikes = [...like, user.email];
         console.log(newLikes);
 
-        // Updating likes 
-        fetch(`http://localhost:5000/posts/${_id}`, {
-            method: 'PATCH',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(newLikes)
-        })
-            .then(res => res.json())
-            .then(data => {
-                if (data.acknowledged) {
-                    toast.success("Liked");
-                }
+        if (liker.length === 0) {
+            // Updating likes 
+            fetch(`http://localhost:5000/posts/${_id}`, {
+                method: 'PATCH',
+                headers: {
+                    'content-type': 'application/json'
+                },
+                body: JSON.stringify(newLikes)
             })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.acknowledged) {
+                        toast.success("Liked");
+                    }
+                })
+        }
+
+
 
     }
 
@@ -64,6 +68,7 @@ const MediaCard = ({ post }) => {
                     <BiLike className='text-3xl mr-2' />
                     <h1>Like</h1>
                 </button>
+
                 <button className='flex items-center hover:text-green-400 btn lg:btn-md btn-sm btn-ghost'>
                     <BiMessage className='text-3xl mr-2' />
                     <h1>Comments</h1>
