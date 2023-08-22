@@ -31,11 +31,11 @@ const PostDetails = () => {
                     </div>
                     <hr className='border border-blue-300' />
                     <div className='flex justify-evenly py-3'>
-                        <button className='flex items-center hover:text-blue-400'>
+                        <button className='flex items-center hover:text-blue-400 btn btn-ghost'>
                             <BiLike className='text-3xl mr-2' />
                             <h1>Like</h1>
                         </button>
-                        <button className='flex items-center hover:text-green-400'>
+                        <button className='flex items-center hover:text-green-400 btn btn-ghost'>
                             <BiMessage className='text-3xl mr-2' />
                             <h1>Comments</h1>
                         </button>
