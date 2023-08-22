@@ -29,11 +29,14 @@ const PostDetails = () => {
                         <p className='text-xs'><span className='font-bold'>Posted on:</span> <span className='font-bold text-blue-600'>{date}</span>  {time}</p>
                         <p>{postContent}</p>
                     </div>
-                    <figure className='mb-2'><img src={postPhotoURL} alt="Cars" /></figure>
+                    {
+                        postPhotoURL &&
+                        <figure className='mb-2'><img src={postPhotoURL} alt="Cars" /></figure>
+                    }
                     <div className='mb-2 ml-5 flex items-center'>
                         <BiSolidLike className='text-2xl text-blue-600' />
                         {
-                            like < 1 ?
+                            like.length < 1 ?
                                 <p className='ml-2 font-semibold'>No Likes</p>
                                 :
                                 <p className='ml-2 font-semibold'>{like}</p>

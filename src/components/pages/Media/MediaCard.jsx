@@ -4,6 +4,11 @@ import { Link } from 'react-router-dom';
 
 const MediaCard = ({ post }) => {
     const { _id, postContent, postPhotoURL, userName, userPhoto, date, time, like } = post;
+
+    const handleLike = () => {
+
+    }
+
     return (
         <div className="card lg:max-w-xl md:max-w-lg sm:max-w-md max-w-sm mx-5 bg-base-100 shadow-xl border border-blue-300 mb-6">
             <div className="card-body">
@@ -25,15 +30,15 @@ const MediaCard = ({ post }) => {
             <div className='mb-2 ml-5 flex items-center'>
                 <BiSolidLike className='text-2xl text-blue-600' />
                 {
-                    like < 1 ?
+                    like.length < 1 ?
                         <p className='ml-2 font-semibold'>No Likes</p>
                         :
-                        <p className='ml-2 font-semibold'>{like}</p>
+                        <p className='ml-2 font-semibold'>{like.length}</p>
                 }
             </div>
             <hr className='border border-blue-300' />
             <div className='flex justify-evenly py-3'>
-                <button className='flex items-center hover:text-blue-400 btn lg:btn-md btn-sm btn-ghost'>
+                <button onClick={handleLike} className='flex items-center hover:text-blue-400 btn lg:btn-md btn-sm btn-ghost'>
                     <BiLike className='text-3xl mr-2' />
                     <h1>Like</h1>
                 </button>
