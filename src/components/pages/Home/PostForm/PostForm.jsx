@@ -3,20 +3,28 @@ import { useForm } from 'react-hook-form';
 import { AuthContext } from '../../../../contexts/AuthProvider';
 import { toast } from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import { format } from 'date-fns';
 
 const PostForm = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
 
+    // date and time 
+    const currentDate = new Date();
+    const date = format(currentDate, 'PP');
+    const time = format(currentDate, 'hh:mm:ss a');
+
     const handleAddPost = (data) => {
         const post = {
             userName: user?.displayName,
             userPhoto: user?.photoURL,
             postContent: data.postContent,
-            postPhotoURL: data.postPhotoURL
+            postPhotoURL: data.postPhotoURL,
+            date,
+            time,
+            like: 0
         }
-        console.log(post);
         // Sending post data to the database
         fetch('http://localhost:5000/posts', {
             method: 'POST',
@@ -32,7 +40,7 @@ const PostForm = () => {
                     reset();
                     navigate('/media')
                 } else {
-                    toast.error("Post not successful");
+                    toast.error("Post is not successful");
                 }
             })
     }

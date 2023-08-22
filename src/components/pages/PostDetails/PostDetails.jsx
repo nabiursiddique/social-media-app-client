@@ -1,11 +1,12 @@
 import React from 'react';
-import { BiLike, BiMessage } from "react-icons/bi";
+import { BiLike, BiMessage, BiSolidLike } from "react-icons/bi";
 import { AiOutlineArrowLeft } from "react-icons/ai";
 import { Link, useLoaderData } from 'react-router-dom';
 
 const PostDetails = () => {
     const postInfo = useLoaderData();
-    const { postContent, postPhotoURL, userName, userPhoto } = postInfo;
+    const { postContent, postPhotoURL, userName, userPhoto, date, time, like } = postInfo;
+    console.log(postInfo);
     return (
         <div>
             <h1 className='text-center my-3 text-xl'>Post Details</h1>
@@ -25,11 +26,18 @@ const PostDetails = () => {
                             </div>
                             <p className='ml-4 font-bold text-blue-400'>{userName}</p>
                         </div>
+                        <p className='text-xs'><span className='font-bold'>Posted on:</span> <span className='font-bold text-blue-600'>{date}</span>  {time}</p>
                         <p>{postContent}</p>
                     </div>
                     <figure className='mb-2'><img src={postPhotoURL} alt="Cars" /></figure>
-                    <div className='mb-2 ml-5'>
-                        <p>no likes</p>
+                    <div className='mb-2 ml-5 flex items-center'>
+                        <BiSolidLike className='text-2xl text-blue-600' />
+                        {
+                            like < 1 ?
+                                <p className='ml-2 font-semibold'>No Likes</p>
+                                :
+                                <p className='ml-2 font-semibold'>{like}</p>
+                        }
                     </div>
                     <hr className='border border-blue-300' />
                     <div className='flex justify-evenly py-3'>
