@@ -22,12 +22,9 @@ const SignUp = () => {
                     displayName: data.name,
                     photoURL: data.photoURL
                 }
-                console.log(userInfo);
                 updateUser(userInfo)
                     .then(() => {
-                        toast.success('Sign Up Successful');
-                        reset();
-                        navigate('/');
+                        saveUserToDB(data.name, data.email, data.photoURL);
                     })
                     .catch(error => {
                         console.log(error);
@@ -46,12 +43,39 @@ const SignUp = () => {
             .then(result => {
                 const { uid, displayName, email, photoURL } = result.user;
                 if (uid) {
-                    toast.success('Sign Up Successful');
+                    saveUserToDB(displayName, email, photoURL);
                 }
             })
             .catch(error => {
                 console.log(error);
             })
+    }
+
+    // save user to db
+    const saveUserToDB = (userName, email, photoURL) => {
+        const user = {
+            name: userName,
+            email: email,
+            photoURL: photoURL,
+            address: '',
+            university: ''
+        }
+        fetch('http://localhost:5000/users', {
+            method: 'POST',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('Account Created Successfully');
+                    reset();
+                    navigate('/');
+                }
+            })
+
     }
 
     return (
