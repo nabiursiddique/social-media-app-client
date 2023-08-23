@@ -22,7 +22,7 @@ const About = () => {
     }
 
     // for getting user info from the database
-    const { data: currentuser = [], isLoading } = useQuery({
+    const { data: currentuser = [], isLoading, refetch } = useQuery({
         queryKey: ['user'],
         queryFn: async () => {
             try {
@@ -34,10 +34,17 @@ const About = () => {
                 console.log(error);
             }
         }
-    })
+    });
+
+    const refetching = () => {
+        refetch();
+    }
 
     if (isLoading) {
-        return <LoadingAnimation></LoadingAnimation>
+        return (
+            <LoadingAnimation></LoadingAnimation>
+
+        )
     }
 
     return (
@@ -82,6 +89,7 @@ const About = () => {
                 user &&
                 <EditInfoModal
                     currentuser={currentuser}
+                    refetch={refetch}
                 ></EditInfoModal>
             }
         </div>

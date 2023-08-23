@@ -1,14 +1,36 @@
 import React, { useContext } from 'react';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { useForm } from 'react-hook-form';
+import { toast } from 'react-hot-toast';
 
-const EditInfoModal = ({ currentuser }) => {
+const EditInfoModal = ({ currentuser, refetch }) => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const { name, email, university, address } = currentuser;
 
     const handleUpdateProfile = (data) => {
-        console.log(data);
+        const updatedInfo = {
+            name: data.name,
+            address: data.address,
+            university: data.university,
+        }
+
+        fetch(`http://localhost:5000/users?email=${email}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(updatedInfo)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    toast.success('Update Infos successful.');
+                    refetch();
+                }
+            })
+        reset();
     }
+
     return (
         <>
             <input type="checkbox" id="booking-modal" className="modal-toggle" />
