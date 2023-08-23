@@ -49,9 +49,9 @@ const About = () => {
 
     return (
         <div>
-            <div className='flex h-screen justify-center items-center'>
-                <div className='my-10'>
-                    <div className="card card-compact bg-base-100 shadow-xl border border-blue-200 py-4 px-3" >
+            <div className=''>
+                <div className='flex my-10 justify-center items-center'>
+                    <div className="card-compact bg-base-100 shadow-xl border border-blue-200 py-4 px-3" >
 
                         {/* Edit Button */}
                         <div className='flex justify-end mr-2'>
@@ -89,7 +89,7 @@ const About = () => {
                 user &&
                 <EditInfoModal
                     currentuser={currentuser}
-                    refetch={refetch}
+                    refetch={refetching}
                 ></EditInfoModal>
             }
         </div>

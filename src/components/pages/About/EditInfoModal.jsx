@@ -3,7 +3,7 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
-const EditInfoModal = ({ currentuser, refetch }) => {
+const EditInfoModal = ({ currentuser, refetching }) => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const { name, email, university, address } = currentuser;
 
@@ -25,7 +25,7 @@ const EditInfoModal = ({ currentuser, refetch }) => {
             .then(data => {
                 if (data.acknowledged) {
                     toast.success('Update Infos successful.');
-                    refetch();
+                    refetching();
                 }
             })
         reset();
