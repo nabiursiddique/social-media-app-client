@@ -43,9 +43,14 @@ const MediaCard = ({ post, refetching }) => {
 
     // posting comments
     const handleComments = (data) => {
+        if (!user) {
+            toast.error('Please sign in to write a comment');
+            navigate('/signIn');
+        }
         const comment = {
             email: user?.email,
-            comment: data.comment
+            comment: data.comment,
+            commenter: user.photoURL
         }
         const newComments = [...comments, comment];
 
@@ -110,8 +115,12 @@ const MediaCard = ({ post, refetching }) => {
                 }
 
                 <button className='flex items-center hover:text-green-400 btn lg:btn-md btn-sm btn-ghost'>
-                    <BiMessage className='text-3xl mr-2' />
-                    <h1>Comments</h1>
+                    <Link to={`/post/${_id}`} >
+                        <div className='flex items-center'>
+                            <BiMessage className='text-3xl mr-2' />
+                            <h1>Comments</h1>
+                        </div>
+                    </Link>
                 </button>
                 <button className='hover:text-sky-400 btn lg:btn-md btn-sm btn-ghost'>
                     <Link to={`/post/${_id}`} >

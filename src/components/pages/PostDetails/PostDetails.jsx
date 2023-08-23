@@ -5,7 +5,7 @@ import { Link, useLoaderData } from 'react-router-dom';
 
 const PostDetails = () => {
     const postInfo = useLoaderData();
-    const { postContent, postPhotoURL, userName, userPhoto, date, time, like } = postInfo;
+    const { postContent, postPhotoURL, userName, userPhoto, date, time, like, comments } = postInfo;
     return (
         <div>
             <h1 className='text-center my-3 text-xl'>Post Details</h1>
@@ -48,14 +48,18 @@ const PostDetails = () => {
 
                     <hr className='border border-blue-300' />
                     <p className='ml-7 mt-3'>All Comments</p>
-                    <div className="chat chat-start m-2 ml-6">
-                        <div className="chat-image avatar">
-                            <div className="w-10 rounded-full">
-                                <img src="https://superstarsbio.com/wp-content/uploads/2021/02/Shirley-Setia.jpg" />
+                    {
+                        comments.map((comment, ind) => (
+                            <div key={ind} className="chat chat-start m-2 ml-6">
+                                <div className="chat-image avatar">
+                                    <div className="w-10 rounded-full">
+                                        <img src={comment.commenter} />
+                                    </div>
+                                </div>
+                                <div className="chat-bubble">{comment.comment}</div>
                             </div>
-                        </div>
-                        <div className="chat-bubble">This car is super awsome.</div>
-                    </div>
+                        ))
+                    }
                 </div>
             </div>
         </div>
