@@ -26,7 +26,7 @@ const About = () => {
         queryKey: ['user'],
         queryFn: async () => {
             try {
-                const res = await fetch(`http://localhost:5000/users?email=${user.email}`);
+                const res = await fetch(`https://social-media-server-pink.vercel.app/users?email=${user.email}`);
                 const data = await res.json();
                 return data;
             }
@@ -36,9 +36,6 @@ const About = () => {
         }
     });
 
-    const refetching = () => {
-        refetch();
-    }
 
     if (isLoading) {
         return (
@@ -89,7 +86,7 @@ const About = () => {
                 user &&
                 <EditInfoModal
                     currentuser={currentuser}
-                    refetch={refetching}
+                    refetch={refetch}
                 ></EditInfoModal>
             }
         </div>

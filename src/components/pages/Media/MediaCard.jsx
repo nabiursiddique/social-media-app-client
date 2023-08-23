@@ -23,7 +23,7 @@ const MediaCard = ({ post, refetching }) => {
 
         if (liker.length === 0 && user?.email) {
             // Updating likes 
-            fetch(`http://localhost:5000/posts/${_id}`, {
+            fetch(`https://social-media-server-pink.vercel.app/posts/${_id}`, {
                 method: 'PATCH',
                 headers: {
                     'content-type': 'application/json'
@@ -53,7 +53,7 @@ const MediaCard = ({ post, refetching }) => {
         }
         const newComments = [...comments, comment];
 
-        fetch(`http://localhost:5000/postscomments/${_id}`, {
+        fetch(`https://social-media-server-pink.vercel.app/postscomments/${_id}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'

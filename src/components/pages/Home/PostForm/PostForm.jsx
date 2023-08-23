@@ -43,7 +43,7 @@ const PostForm = () => {
                     }
 
                     // Sending post data to the database
-                    fetch('http://localhost:5000/posts', {
+                    fetch('https://social-media-server-pink.vercel.app/posts', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json'
@@ -75,7 +75,7 @@ const PostForm = () => {
                     }
 
                     // Sending post data to the database
-                    fetch('http://localhost:5000/posts', {
+                    fetch('https://social-media-server-pink.vercel.app/posts', {
                         method: 'POST',
                         headers: {
                             'content-type': 'application/json'

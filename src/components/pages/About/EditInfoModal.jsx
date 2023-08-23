@@ -3,7 +3,7 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 import { useForm } from 'react-hook-form';
 import { toast } from 'react-hot-toast';
 
-const EditInfoModal = ({ currentuser, refetching }) => {
+const EditInfoModal = ({ currentuser, refetch }) => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const { name, email, university, address } = currentuser;
 
@@ -14,7 +14,7 @@ const EditInfoModal = ({ currentuser, refetching }) => {
             university: data.university,
         }
 
-        fetch(`http://localhost:5000/users?email=${email}`, {
+        fetch(`https://social-media-server-pink.vercel.app/users?email=${email}`, {
             method: 'PATCH',
             headers: {
                 'content-type': 'application/json'
@@ -25,7 +25,7 @@ const EditInfoModal = ({ currentuser, refetching }) => {
             .then(data => {
                 if (data.acknowledged) {
                     toast.success('Update Infos successful.');
-                    refetching();
+                    refetch();
                 }
             })
         reset();

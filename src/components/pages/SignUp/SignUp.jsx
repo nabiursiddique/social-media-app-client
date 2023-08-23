@@ -77,7 +77,7 @@ const SignUp = () => {
             address: '',
             university: ''
         }
-        fetch('http://localhost:5000/users', {
+        fetch('https://social-media-server-pink.vercel.app/users', {
             method: 'POST',
             headers: {
                 'content-type': 'application/json'
