@@ -4,7 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import LoadingAnimation from '../../LittleComponents/LoadingAnimation/LoadingAnimation';
 
 const Media = () => {
-    const { data: posts = [], isLoading } = useQuery({
+    const { data: posts = [], isLoading, refetch } = useQuery({
         queryKey: ['posts'],
         queryFn: async () => {
             try {
@@ -16,7 +16,11 @@ const Media = () => {
                 console.log(error);
             }
         }
-    })
+    });
+
+    const refetching = () => {
+        refetch();
+    }
 
     if (isLoading) {
         return <LoadingAnimation></LoadingAnimation>;
@@ -29,7 +33,7 @@ const Media = () => {
                 <div>
 
                     {
-                        posts.map(post => <MediaCard key={post._id} post={post} />)
+                        posts.map(post => <MediaCard key={post._id} post={post} refetching={refetching} />)
                     }
                 </div>
             </div>

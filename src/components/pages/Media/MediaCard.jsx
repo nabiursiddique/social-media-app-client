@@ -4,7 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { toast } from 'react-hot-toast';
 
-const MediaCard = ({ post }) => {
+const MediaCard = ({ post, refetching }) => {
     const { user } = useContext(AuthContext);
     const { _id, postContent, postPhotoURL, userName, userPhoto, date, time, like } = post;
     const navigate = useNavigate();
@@ -31,6 +31,7 @@ const MediaCard = ({ post }) => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.acknowledged) {
+                        refetching();
                         toast.success("Liked");
                     }
                 })
