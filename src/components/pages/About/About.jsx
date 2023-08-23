@@ -49,9 +49,9 @@ const About = () => {
 
     return (
         <div>
-            <div className='flex justify-center items-center'>
+            <div className='flex h-screen justify-center items-center'>
                 <div className='my-10'>
-                    <div className="card card-compact max-w-96 bg-base-100 shadow-xl border border-blue-200 py-4" >
+                    <div className="card card-compact w-80 bg-base-100 shadow-xl border border-blue-200 py-4 px-3" >
 
                         {/* Edit Button */}
                         <div className='flex justify-end mr-2'>

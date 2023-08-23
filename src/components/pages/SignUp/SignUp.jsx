@@ -9,6 +9,7 @@ const SignUp = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const { createUser, updateUser, googleSignIn } = useContext(AuthContext);
     const [signUpError, setSignUpError] = useState('');
+    const imageHostKey = import.meta.env.VITE_APP_imagebb_key;
 
     const navigate = useNavigate();
 
@@ -18,22 +19,38 @@ const SignUp = () => {
         createUser(data.email, data.password)
             .then((result) => {
                 const user = result.user;
-                const userInfo = {
-                    displayName: data.name,
-                    photoURL: data.photoURL
-                }
-                updateUser(userInfo)
-                    .then(() => {
-                        saveUserToDB(data.name, data.email, data.photoURL);
+                const image = data.image[0];
+                const formData = new FormData();
+                formData.append('image', image);
+                const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+
+                fetch(url, {
+                    method: 'POST',
+                    body: formData
+                })
+                    .then((res) => res.json())
+                    .then((imgData) => {
+                        const userInfo = {
+                            displayName: data.name,
+                            photoURL: imgData.data.url
+                        }
+                        updateUser(userInfo)
+                            .then(() => {
+                                saveUserToDB(data.name, data.email, imgData.data.url);
+                            })
+                            .catch(error => {
+                                console.log(error);
+                            })
                     })
                     .catch(error => {
                         console.log(error);
-                    })
+                        setSignUpError(error.message);
+                    });
             })
-            .catch(error => {
+            .catch((error) => {
                 console.log(error);
-                setSignUpError(error.message);
-            })
+            });
+
 
     }
 
@@ -102,24 +119,15 @@ const SignUp = () => {
                         {errors.email && <p className='text-sm mt-2 text-red-500'>{errors.email?.message}</p>}
                     </div>
 
-                    {/* Users photo upload we will implement it later*/}
-                    {/* <div className="form-control w-full ">
+                    {/* Users photo upload */}
+                    <div className="form-control w-full ">
                         <label className="label">
                             <span className="label-text">Your Photo</span>
                         </label>
                         <input {...register("image", {
-                            required: "Product photo is required."
+                            required: "Your photo is required."
                         })} type="file" placeholder="Type here" className="file-input file-input-bordered file-input-info w-full" />
                         {errors.image && <p className='text-sm mt-2 text-red-500'>{errors.image?.message}</p>}
-                    </div> */}
-
-                    {/* user photo collecting with link */}
-                    <div className="form-control w-full">
-                        <label className="label"><span className="label-text">Photo URL</span></label>
-                        <input {...register("photoURL", {
-                            required: "Photo URL is required."
-                        })} type="text" placeholder="Your photoURL" className="input input-bordered w-full" />
-                        {errors.photoURL && <p className='text-sm mt-2 text-red-500'>{errors.photoURL?.message}</p>}
                     </div>
 
                     <div className="form-control w-full">
