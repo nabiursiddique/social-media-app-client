@@ -19,7 +19,6 @@ const MediaCard = ({ post, refetching }) => {
         }
 
         const liker = like.filter((liker) => liker === user?.email);
-        console.log(liker);
         const newLikes = [...like, user?.email];
 
         if (liker.length === 0 && user?.email) {
