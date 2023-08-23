@@ -33,7 +33,7 @@ const Media = () => {
                 <div>
 
                     {
-                        posts.map(post => <MediaCard key={post._id} post={post} refetching={refetching} />)
+                        posts.toReversed().map(post => <MediaCard key={post._id} post={post} refetching={refetching} />)
                     }
                 </div>
             </div>
