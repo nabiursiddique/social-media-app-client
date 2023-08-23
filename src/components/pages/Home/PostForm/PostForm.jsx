@@ -9,6 +9,7 @@ const PostForm = () => {
     const { register, handleSubmit, formState: { errors }, reset } = useForm();
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
+    const imageHostKey = import.meta.env.VITE_APP_imagebb_key;
 
     // date and time 
     const currentDate = new Date();
@@ -16,33 +17,89 @@ const PostForm = () => {
     const time = format(currentDate, 'hh:mm:ss a');
 
     const handleAddPost = (data) => {
-        const post = {
-            userName: user?.displayName,
-            userPhoto: user?.photoURL,
-            postContent: data.postContent,
-            postPhotoURL: data.postPhotoURL,
-            date,
-            time,
-            like: []
-        }
-        // Sending post data to the database
-        fetch('http://localhost:5000/posts', {
+        // Image hosting
+        const image = data.postPhoto[0];
+        const formData = new FormData();
+        formData.append('image', image);
+
+        const url = `https://api.imgbb.com/1/upload?key=${imageHostKey}`;
+        fetch(url, {
             method: 'POST',
-            headers: {
-                'content-type': 'application/json'
-            },
-            body: JSON.stringify(post)
+            body: formData
         })
-            .then(res => res.json())
-            .then(data => {
-                if (data.acknowledged) {
-                    toast.success("Post Successful");
-                    reset();
-                    navigate('/media')
-                } else {
-                    toast.error("Post is not successful");
+            .then((res) => res.json())
+            .then((imgData) => {
+                // Posting with image
+                if (imgData.success) {
+                    const post = {
+                        userName: user?.displayName,
+                        userPhoto: user?.photoURL,
+                        postContent: data.postContent,
+                        postPhotoURL: imgData.data.url,
+                        date,
+                        time,
+                        like: [],
+                        comments: []
+                    }
+
+                    // Sending post data to the database
+                    fetch('http://localhost:5000/posts', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(post)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.acknowledged) {
+                                toast.success("Post Successful");
+                                reset();
+                                navigate('/media')
+                            } else {
+                                toast.error("Post is not successful");
+                            }
+                        })
+                }
+                else {
+                    // Posting without image
+                    const post = {
+                        userName: user?.displayName,
+                        userPhoto: user?.photoURL,
+                        postContent: data.postContent,
+                        postPhotoURL: '',
+                        date,
+                        time,
+                        like: [],
+                        comments: []
+                    }
+
+                    // Sending post data to the database
+                    fetch('http://localhost:5000/posts', {
+                        method: 'POST',
+                        headers: {
+                            'content-type': 'application/json'
+                        },
+                        body: JSON.stringify(post)
+                    })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.acknowledged) {
+                                toast.success("Post Successful");
+                                reset();
+                                navigate('/media')
+                            } else {
+                                toast.error("Post is not successful");
+                            }
+                        })
+
                 }
             })
+            .catch((error) => {
+                console.log(error);
+            });
+
+
     }
 
     return (
@@ -60,20 +117,21 @@ const PostForm = () => {
                         {errors.postContent && <p className='text-sm mt-2 text-red-500'>{errors.postContent?.message}</p>}
                     </div>
 
-                    {/* For uploading Image, we will implement later*/}
-                    {/* <div className="form-control w-full max-w-xs my-auto">
+                    {/* For uploading Image*/}
+                    <div className="form-control w-full my-auto">
                         <label className="label">
-                            <span className="label-text text-blue-400">Upload a Photo</span>
+                            <span className="label-text text-blue-400">Photo</span>
                         </label>
-                        <input {...register("postImage")} type="file" className="file-input file-input-bordered file-input-info w-full max-w-lg" />
-                    </div> */}
+                        <input {...register("postPhoto")} type="file" className="file-input file-input-bordered  file-input-info w-full" />
+                        {errors.postPhoto && <p className='text-sm mt-2 text-red-500'>{errors.postPhoto?.message}</p>}
+                    </div>
 
                     {/* Photo url */}
-                    <div className="form-control w-full my-auto">
+                    {/*   <div className="form-control w-full my-auto">
                         <label className="label"><span className="label-text">Photo URL</span></label>
                         <input {...register("postPhotoURL")} type="text" placeholder="Your post photoURL" className="input input-bordered w-full" />
                         {errors.postPhotoURL && <p className='text-sm mt-2 text-red-500'>{errors.postPhotoURL?.message}</p>}
-                    </div>
+                    </div> */}
                 </div>
                 <div className='flex justify-center'>
                     {
