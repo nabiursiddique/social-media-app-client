@@ -125,13 +125,6 @@ const PostForm = () => {
                         <input {...register("postPhoto")} type="file" className="file-input file-input-bordered  file-input-info w-full" />
                         {errors.postPhoto && <p className='text-sm mt-2 text-red-500'>{errors.postPhoto?.message}</p>}
                     </div>
-
-                    {/* Photo url */}
-                    {/*   <div className="form-control w-full my-auto">
-                        <label className="label"><span className="label-text">Photo URL</span></label>
-                        <input {...register("postPhotoURL")} type="text" placeholder="Your post photoURL" className="input input-bordered w-full" />
-                        {errors.postPhotoURL && <p className='text-sm mt-2 text-red-500'>{errors.postPhotoURL?.message}</p>}
-                    </div> */}
                 </div>
                 <div className='flex justify-center'>
                     {

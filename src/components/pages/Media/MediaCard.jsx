@@ -3,21 +3,24 @@ import { BiLike, BiMessage, BiReceipt, BiSolidLike } from "react-icons/bi";
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { toast } from 'react-hot-toast';
+import { useForm } from 'react-hook-form';
+import { AiOutlineSend } from "react-icons/ai";
 
 const MediaCard = ({ post, refetching }) => {
     const { user } = useContext(AuthContext);
-    const { _id, postContent, postPhotoURL, userName, userPhoto, date, time, like } = post;
+    const { _id, postContent, postPhotoURL, userName, userPhoto, date, time, like, comments } = post;
+    const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
 
+    // Handling likes count
     const handleLike = () => {
         if (!user) {
             navigate('/signIn')
         }
 
         const liker = like.filter((liker) => liker === user?.email);
-        console.log(liker.length);
+        console.log(liker);
         const newLikes = [...like, user?.email];
-        console.log(newLikes);
 
         if (liker.length === 0 && user?.email) {
             // Updating likes 
@@ -36,6 +39,31 @@ const MediaCard = ({ post, refetching }) => {
                     }
                 })
         }
+    }
+
+    // posting comments
+    const handleComments = (data) => {
+        const comment = {
+            email: user?.email,
+            comment: data.comment
+        }
+        const newComments = [...comments, comment];
+
+        fetch(`http://localhost:5000/postscomments/${_id}`, {
+            method: 'PATCH',
+            headers: {
+                'content-type': 'application/json'
+            },
+            body: JSON.stringify(newComments)
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.acknowledged) {
+                    refetching();
+                    toast.success('comment added.')
+                }
+            })
+        reset();
     }
 
     return (
@@ -93,6 +121,21 @@ const MediaCard = ({ post, refetching }) => {
                         </div>
                     </Link>
                 </button>
+            </div>
+            <hr className='border border-blue-300' />
+            {/* For comment */}
+            <div>
+                <form onSubmit={handleSubmit(handleComments)}>
+                    <div className='form-control grid grid-cols-2 mx-3'>
+                        <p className='my-auto font-semibold'>Comment Here</p>
+                        <div className='flex justify-center items-center'>
+                            <textarea {...register("comment", { required: true })} placeholder="write here..." className="textarea textarea-bordered textarea-xs w-full max-w-xs my-2" ></textarea>
+                            <button type='submit'>
+                                <AiOutlineSend type='submit' className='text-xl ml-2 hover:text-blue-400' />
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
     );
