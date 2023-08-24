@@ -3,7 +3,7 @@ import React from 'react';
 const LoadingAnimation = () => {
     return (
         <div className='flex justify-center items-center h-screen'>
-            <div className="rounded-md h-12 w-12 border-4 border-t-4 border-blue-300 animate-spin absolute"></div>
+            <div className="rounded-md h-12 w-12 border-4 border-t-4 border-blue-400 animate-spin absolute"></div>
         </div>
     );
 };
