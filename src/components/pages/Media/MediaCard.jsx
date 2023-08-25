@@ -5,6 +5,7 @@ import { AuthContext } from '../../../contexts/AuthProvider';
 import { toast } from 'react-hot-toast';
 import { useForm } from 'react-hook-form';
 import { AiOutlineSend } from "react-icons/ai";
+import placeholder from '../../../assets/Men-01.png';
 
 const MediaCard = ({ post, refetching }) => {
     const { user } = useContext(AuthContext);
@@ -157,7 +158,12 @@ const MediaCard = ({ post, refetching }) => {
                             <div className='pr-2'>
                                 <div className="avatar">
                                     <div className="w-7 rounded-full">
-                                        <img src={user?.photoURL} />
+                                        {
+                                            user ?
+                                                <img src={user?.photoURL} />
+                                                :
+                                                <img src={placeholder} />
+                                        }
                                     </div>
                                 </div>
                             </div>

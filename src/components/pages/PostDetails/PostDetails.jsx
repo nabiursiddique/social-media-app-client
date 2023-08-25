@@ -47,7 +47,7 @@ const PostDetails = () => {
                     </div>
 
                     <hr className='border border-blue-300' />
-                    <p className='ml-7 mt-3'>All Comments</p>
+                    <p className='ml-7 my-3'>All Comments</p>
                     {
                         comments.map((comment, ind) => (
                             <div key={ind} className="chat chat-start m-2 ml-6">
