@@ -1,5 +1,5 @@
 import React, { useContext } from 'react';
-import { BiLike, BiMessage, BiReceipt, BiSolidLike } from "react-icons/bi";
+import { BiLike, BiMessage, BiReceipt, BiSolidLike, BiComment } from "react-icons/bi";
 import { Link, useNavigate } from 'react-router-dom';
 import { AuthContext } from '../../../contexts/AuthProvider';
 import { toast } from 'react-hot-toast';
@@ -11,7 +11,7 @@ const MediaCard = ({ post, refetching }) => {
     const { _id, postContent, postPhotoURL, userName, userPhoto, date, time, like, comments } = post;
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
-
+    console.log(comments.length);
     // Handling likes count
     const handleLike = () => {
         if (!user) {
@@ -88,14 +88,32 @@ const MediaCard = ({ post, refetching }) => {
                 postPhotoURL !== '' &&
                 <figure className='mb-2'><img src={postPhotoURL} alt="Post photo" /></figure>
             }
-            <div className='mb-2 ml-5 flex items-center'>
-                <BiSolidLike className='text-2xl text-blue-600' />
-                {
-                    like.length < 1 ?
-                        <p className='ml-2 font-semibold'>No Likes</p>
-                        :
-                        <p className='ml-2 font-semibold'>{like.length}</p>
-                }
+            <div className='mb-2 mx-5 flex justify-between items-center'>
+                <div className='flex'>
+                    <BiSolidLike className='text-2xl text-blue-600' />
+                    {
+                        like.length < 1 ?
+                            <p className='ml-2 font-semibold'>No Likes</p>
+                            :
+                            <p className='ml-2 font-semibold'>{like.length}</p>
+                    }
+                </div>
+                <div >
+                    {
+                        comments.length < 1 ?
+                            <div className='flex'>
+                                <p className='mr-2'>No Comments</p>
+                                <BiComment className='text-2xl text-green-600' />
+                            </div>
+                            :
+                            <>
+                                <Link to={`/post/${_id}`} className='flex'>
+                                    <p className='mr-2 font-semibold'>{comments.length}</p>
+                                    <BiComment className='text-2xl text-green-600' />
+                                </Link>
+                            </>
+                    }
+                </div>
             </div>
             <hr className='border border-blue-300' />
             <div className='flex justify-evenly py-3'>
@@ -135,7 +153,16 @@ const MediaCard = ({ post, refetching }) => {
             <div>
                 <form onSubmit={handleSubmit(handleComments)}>
                     <div className='form-control grid grid-cols-2 mx-3'>
-                        <p className='my-auto font-semibold'>Comment Here</p>
+                        <div className='flex items-center'>
+                            <div className='pr-2'>
+                                <div className="avatar">
+                                    <div className="w-7 rounded-full">
+                                        <img src={user?.photoURL} />
+                                    </div>
+                                </div>
+                            </div>
+                            <p className='my-auto font-semibold'>Comment Here</p>
+                        </div>
                         <div className='flex justify-center items-center'>
                             <textarea {...register("comment", { required: true })} placeholder="write here..." className="textarea textarea-bordered textarea-xs w-full max-w-xs my-2" ></textarea>
                             <button type='submit'>
