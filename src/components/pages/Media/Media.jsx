@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import MediaCard from './MediaCard';
 import { useQuery } from '@tanstack/react-query';
 import LoadingAnimation from '../../LittleComponents/LoadingAnimation/LoadingAnimation';

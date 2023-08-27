@@ -12,8 +12,8 @@ const MediaCard = ({ post, refetching }) => {
     const { _id, postContent, postPhotoURL, userName, userPhoto, date, time, like, comments } = post;
     const { register, handleSubmit, reset } = useForm();
     const navigate = useNavigate();
-    console.log(comments.length);
-    // Handling likes count
+
+    // Handling likes
     const handleLike = () => {
         if (!user) {
             navigate('/signIn')
